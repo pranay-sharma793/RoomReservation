@@ -1,6 +1,7 @@
 package com.hibernateDemo.reservation.Business.Service;
 
 import com.hibernateDemo.reservation.Business.Domain.RoomReservation;
+import com.hibernateDemo.reservation.Web.DateUtils;
 import com.hibernateDemo.reservation.entity.Reservation;
 import com.hibernateDemo.reservation.entity.Room;
 import com.hibernateDemo.reservation.repository.IGuestRepository;
@@ -24,7 +25,7 @@ public class ReservationService {
         this.reservationRepository = reservationRepository;
     }
 
-    public List<RoomReservation> RoomReservationforDate(Date date){
+    public List<RoomReservation> RoomReservationforDate(String date){
         Iterable<Room> rooms = this.roomRepository.findAll();
         Map<Long, RoomReservation> roomReservationMap = new HashMap<>();
         rooms.forEach(room -> {
@@ -34,10 +35,12 @@ public class ReservationService {
             roomReservation.setRoomName(room.getName());
             roomReservationMap.put(room.getRoomId(),roomReservation);
         });
-        Iterable<Reservation> reservations = this.reservationRepository.findReservationByReservationDate(new java.sql.Date(date.getTime()));
+      //  Iterable<Reservation> reservations = this.reservationRepository.findReservationByReservationDate(new java.sql.Date(date.getTime()));
+       // Iterable<Reservation> reservations = this.reservationRepository.findAll();
+        Iterable<Reservation> reservations = this.reservationRepository.findReservationByDate(date.toString());
         reservations.forEach(reservation -> {
             RoomReservation roomReservation = roomReservationMap.get(reservation.getRoom().getRoomId());
-            roomReservation.setDate(date);
+            roomReservation.setDate(DateUtils.createDatefromDateString(date));
             roomReservation.setGuestId(reservation.getGuest().getGuestId());
             roomReservation.setfName(reservation.getGuest().getfName());
             roomReservation.setlName(reservation.getGuest().getlName());

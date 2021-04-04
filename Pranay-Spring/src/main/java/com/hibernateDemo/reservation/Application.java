@@ -1,7 +1,13 @@
 package com.hibernateDemo.reservation;
 
+import com.hibernateDemo.reservation.entity.Room;
+import com.hibernateDemo.reservation.repository.IRoomRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
 @SpringBootApplication
@@ -11,19 +17,19 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-//    @RestController
-//    @RequestMapping("/rooms")
-//    public class RoomController{
-//
-//        @Autowired
-//        private IRoomRepository roomRepository;
-//
-//        @GetMapping
-//        public Iterable<Room> getRooms(){
-//            return this.roomRepository.findAll();
-//        }
-//    }
-//
+    @RestController
+    @RequestMapping("/rooms")
+    public class RoomController{
+
+        @Autowired
+        private IRoomRepository roomRepository;
+
+        @GetMapping
+        public Iterable<Room> getRooms(){
+            return this.roomRepository.findAll();
+        }
+    }
+
 //    @RestController
 //    @RequestMapping("/guests")
 //    public class GuestController{
@@ -38,7 +44,7 @@ public class Application {
 //    }
 //
 //    @RestController
-//    @RequestMapping("/reservations")
+//    @RequestMapping("/reservationstry")
 //    public class ResvController{
 //
 //        @Autowired
