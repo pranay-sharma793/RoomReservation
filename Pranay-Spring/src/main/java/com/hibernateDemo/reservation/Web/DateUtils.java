@@ -20,4 +20,15 @@ public class DateUtils {
 
         return date;
     }
+
+    public static String formatDate(Date date){
+        String pattern = "yyyy-MM-dd";
+
+        DateFormat df = new SimpleDateFormat(pattern);
+        String todayAsString = df.format(date);
+
+// Print the result!
+        return todayAsString;
+
+    }
 }
